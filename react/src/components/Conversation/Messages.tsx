@@ -1,46 +1,6 @@
 import { Box, Typography } from "@mui/material";
-import React from "react";
 
-enum MessageType {
-  SEND,
-  RECEIVE,
-}
-
-const messages = [
-  { messageType: MessageType.SEND, message: "Hi" },
-  { messageType: MessageType.RECEIVE, message: "Hello" },
-  { messageType: MessageType.SEND, message: "Hi" },
-  { messageType: MessageType.RECEIVE, message: "Hello" },
-  { messageType: MessageType.SEND, message: "Hi" },
-  { messageType: MessageType.RECEIVE, message: "Hello" },
-  { messageType: MessageType.SEND, message: "Hi" },
-  { messageType: MessageType.SEND, message: "Hello" },
-  { messageType: MessageType.SEND, message: "Hi" },
-  { messageType: MessageType.SEND, message: "Hello" },
-  { messageType: MessageType.SEND, message: "Hi" },
-  { messageType: MessageType.RECEIVE, message: "Hello" },
-  { messageType: MessageType.SEND, message: "Hi" },
-  { messageType: MessageType.RECEIVE, message: "Hello" },
-  { messageType: MessageType.SEND, message: "Hi" },
-  { messageType: MessageType.RECEIVE, message: "Hello" },
-  { messageType: MessageType.SEND, message: "Hi" },
-  { messageType: MessageType.RECEIVE, message: "Hello" },
-  { messageType: MessageType.SEND, message: "Hi" },
-  { messageType: MessageType.RECEIVE, message: "Hello" },
-  { messageType: MessageType.SEND, message: "Hi" },
-  { messageType: MessageType.RECEIVE, message: "Hello" },
-  { messageType: MessageType.SEND, message: "Hi" },
-  { messageType: MessageType.RECEIVE, message: "Hello" },
-  { messageType: MessageType.SEND, message: "Hi" },
-  { messageType: MessageType.RECEIVE, message: "Hello" },
-  { messageType: MessageType.SEND, message: "Hi" },
-  { messageType: MessageType.RECEIVE, message: "Hello" },
-  { messageType: MessageType.SEND, message: "Hi" },
-  { messageType: MessageType.RECEIVE, message: "Hello" },
-  { messageType: MessageType.SEND, message: "Hi" },
-  { messageType: MessageType.RECEIVE, message: "Hello" },
-];
-const Messages = () => {
+const Messages = ({ messages }: any) => {
   return (
     <Box
       sx={{
@@ -53,26 +13,26 @@ const Messages = () => {
         p: 1,
       }}
     >
-      {messages.map(({ message, messageType }, index) => {
+      {messages.map((item, index) => {
         return (
           <Box
             key={index}
             sx={{
               display: "flex",
-              justifyContent: messageType ? "flex-end" : "flex-start",
+              justifyContent: item ? "flex-end" : "flex-start",
               p: 1,
             }}
           >
             <Typography
               sx={{
                 border: 1,
-                borderColor: messageType ? "info.light" : "secondary.dark",
+                borderColor: item ? "info.light" : "secondary.dark",
                 borderRadius: 10,
                 px: 2,
                 py: 0.5,
               }}
             >
-              {message}
+              {item}
             </Typography>
           </Box>
         );

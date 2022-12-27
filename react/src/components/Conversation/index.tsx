@@ -1,8 +1,23 @@
 import { Box } from "@mui/material";
 import Messages from "./Messages";
 import MessageInput from "./MessageInput";
+import { io } from "socket.io-client";
+import { useEffect, useState } from "react";
+const socket = io("http://localhost:3002");
 
 const Conversation = () => {
+  const [messages, setMessages] = useState<string[]>([]);
+
+  useEffect(() => {
+    socket.on("receive_message", (data) => {
+      setMessages((prev) => [...prev, data]);
+    });
+  }, [socket]);
+
+  const onSend = (message: string) => {
+    socket.emit("send_message", message);
+    console.log(message);
+  };
   return (
     <Box
       sx={{
@@ -12,8 +27,8 @@ const Conversation = () => {
         flexDirection: "column",
       }}
     >
-      <Messages />
-      <MessageInput />
+      <Messages messages={messages} />
+      <MessageInput onSend={onSend} />
     </Box>
   );
 };

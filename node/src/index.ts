@@ -1,6 +1,28 @@
 import express from "express";
-const app = express();
-const port = 8080;
+import { createServer } from "http";
+import { Server } from "socket.io";
 
-app.get("/", (req, res) => res.send("Hello ss!"));
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+const app = express();
+const httpServer = createServer(app);
+const io = new Server(httpServer, {
+  cors: {
+    origin: "*",
+  },
+});
+
+app.get("/hello", (req, res) => {
+  res.send("hello");
+});
+
+io.on("connection", (socket) => {
+  console.log("User connected", socket.id);
+
+  socket.on("send_message", (message) => {
+    socket.broadcast.emit("receive_message", message);
+  });
+  socket.on("disconnect", () => {
+    console.log("User Disconnected", socket.id);
+  });
+});
+
+httpServer.listen(3002);

@@ -1,7 +1,17 @@
-import React from "react";
+import { useState } from "react";
 import { Box, Button, Input } from "@mui/material";
 
-const MessageInput = () => {
+interface Props {
+  onSend: (arg: string) => void;
+}
+
+const MessageInput = ({ onSend }: Props) => {
+  const [message, setMessage] = useState("");
+  const onClickSend = () => {
+    setMessage("");
+    onSend(message);
+  };
+
   return (
     <Box
       sx={{
@@ -13,6 +23,8 @@ const MessageInput = () => {
       }}
     >
       <Input
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
         fullWidth
         disableUnderline
         placeholder="Message"
@@ -28,7 +40,9 @@ const MessageInput = () => {
           },
         }}
       />
-      <Button variant="outlined">send</Button>
+      <Button variant="outlined" onClick={onClickSend}>
+        send
+      </Button>
     </Box>
   );
 };
