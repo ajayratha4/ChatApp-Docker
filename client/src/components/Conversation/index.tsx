@@ -16,7 +16,7 @@ const Conversation = () => {
 
   const onSend = (message: string) => {
     socket.emit("send_message", message);
-    console.log(message);
+    setMessages((prev) => [...prev, message]);
   };
   return (
     <Box
