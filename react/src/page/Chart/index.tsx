@@ -10,7 +10,7 @@ const Chart = () => {
         xs={4}
         md={3}
         item
-        sx={{ backgroundColor: "primary.main", p: 1, height: 1 }}
+        sx={{ backgroundColor: "primary.light", p: 1, height: 1 }}
       >
         <ChatList />
       </Grid>

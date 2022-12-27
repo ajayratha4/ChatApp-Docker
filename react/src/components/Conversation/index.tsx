@@ -1,8 +1,21 @@
 import { Box } from "@mui/material";
-import React from "react";
+import Messages from "./Messages";
+import MessageInput from "./MessageInput";
 
-const conversation = () => {
-  return <Box>conversation</Box>;
+const Conversation = () => {
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        width: 1,
+        height: 1,
+        flexDirection: "column",
+      }}
+    >
+      <Messages />
+      <MessageInput />
+    </Box>
+  );
 };
 
-export default conversation;
+export default Conversation;
