@@ -1,7 +1,6 @@
-import React from "react";
 import { Grid } from "@mui/material";
-import ChatList from "../../components/ChatList";
-import Conversation from "../../components/Conversation";
+import ChatList from "components/ChatList";
+import Conversation from "components/Conversation";
 
 const Chart = () => {
   return (

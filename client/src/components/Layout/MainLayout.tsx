@@ -1,7 +1,6 @@
-import React from "react";
 import { Box } from "@mui/material";
-import Chart from "../../page/Chart";
-import Header from "../Header";
+import Header from "components/Header";
+import Chart from "page/Chart";
 
 const MainLayout = () => {
   return (

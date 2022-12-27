@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 
-const Messages = ({ messages }: any) => {
+const Messages = ({ messages }: { messages: string[] }) => {
   return (
     <Box
       sx={{

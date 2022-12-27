@@ -1,8 +1,9 @@
 import { Box } from "@mui/material";
-import Messages from "./Messages";
-import MessageInput from "./MessageInput";
 import { io } from "socket.io-client";
 import { useEffect, useState } from "react";
+import Messages from "./Messages";
+import MessageInput from "./MessageInput";
+
 const socket = io("http://localhost:3002");
 
 const Conversation = () => {
@@ -18,6 +19,7 @@ const Conversation = () => {
     socket.emit("send_message", message);
     setMessages((prev) => [...prev, message]);
   };
+
   return (
     <Box
       sx={{
