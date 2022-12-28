@@ -10,7 +10,7 @@ const Messages = ({ messages }: { messages: string[] }) => {
         width: 1,
         height: 1,
         overflow: "auto",
-        p: 1,
+        p: [0, 0, 1],
       }}
     >
       {messages.map((item, index) => {
@@ -28,8 +28,8 @@ const Messages = ({ messages }: { messages: string[] }) => {
                 border: 1,
                 borderColor: item ? "info.light" : "secondary.dark",
                 borderRadius: 10,
-                px: 2,
-                py: 0.5,
+                px: [0, 0, 2],
+                py: [0, 0, 0.5],
               }}
             >
               {item}

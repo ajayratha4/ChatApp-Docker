@@ -25,6 +25,9 @@ const MessageInput = ({ onSend }: Props) => {
       <Input
         value={message}
         onChange={(e) => setMessage(e.target.value)}
+        onKeyUp={(e) => {
+          e.keyCode === 13 && onClickSend();
+        }}
         fullWidth
         disableUnderline
         placeholder="Message"
