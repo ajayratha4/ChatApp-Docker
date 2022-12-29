@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import Header from "components/Header";
-import Chart from "page/Chart";
+import Chat from "page/Chat";
 
 const MainLayout = () => {
   return (
@@ -9,7 +9,7 @@ const MainLayout = () => {
         <Header />
       </Box>
       <Box sx={{ height: "calc(100% - 60px)" }}>
-        <Chart />
+        <Chat />
       </Box>
     </Box>
   );

@@ -1,4 +1,4 @@
-import MainLayout from "components/Layout/MainLayout";
+import MainLayout from "Layout/MainLayout";
 import Store from "context";
 import "./MuiClassNameSetup";
 import "./app.css";

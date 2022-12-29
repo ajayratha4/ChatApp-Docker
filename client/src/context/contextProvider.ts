@@ -2,7 +2,9 @@ import React from "react";
 
 export enum ActionKind {
   SETTHEMECOLOR = "SETTHEMECOLOR",
-  SETCUSER = "SETCUSER",
+  SETUSERS = "SETUSERS",
+  SETSELECTEDUSER = "SETSELECTEDUSER",
+  SETUSERSMESSAGE = "SETUSERSMESSAGE",
 }
 
 export interface Action {
@@ -11,16 +13,20 @@ export interface Action {
 }
 
 export interface User {
-  id: number;
+  userId: number;
   userName: string;
+  socketId: string;
+  message: string;
 }
 interface InitialValue {
   isDark: boolean;
-  user: User | null;
+  user: User[] | [];
+  selectedUser: number | null;
 }
 export const initialValue = {
   isDark: false,
-  user: null,
+  user: [],
+  selectedUser: null,
 };
 export const reducer = (state: InitialValue, action: Action) => {
   const { type, payload } = action;
@@ -32,12 +38,28 @@ export const reducer = (state: InitialValue, action: Action) => {
         isDark: payload,
       };
 
-    case ActionKind.SETCUSER:
+    case ActionKind.SETUSERS:
       return {
         ...state,
         user: payload,
       };
 
+    case ActionKind.SETSELECTEDUSER:
+      return {
+        ...state,
+        selectedUser: payload,
+      };
+    case ActionKind.SETUSERSMESSAGE:
+      const newUser = { ...state.user };
+      newUser[payload.id] = {
+        ...newUser[payload.id],
+        message: payload.message,
+      };
+
+      return {
+        ...state,
+        user: newUser,
+      };
     default:
       return state;
   }

@@ -1,15 +1,16 @@
+import { useMemo } from "react";
 import { io } from "socket.io-client";
 
 const useSocket = () => {
-  const socket = io("http://localhost:3002", {
-    path: "/socket",
-  });
+  const socket = useMemo(
+    () =>
+      io("http://localhost:3002", {
+        path: "/socket",
+      }),
+    []
+  );
 
-  const socketIo = (event: string, message: string) => {
-    socket.emit(event, message);
-  };
-
-  return { socket, socketIo };
+  return { socket };
 };
 
 export default useSocket;

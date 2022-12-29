@@ -1,35 +1,35 @@
 import { Box, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import Messages from "./Messages";
 import MessageInput from "./MessageInput";
-import { User } from "context/contextProvider";
-import { io } from "socket.io-client";
+import { Socket } from "socket.io-client";
+import useProvider from "hooks/useProvider";
 
 interface Props {
-  user: User;
+  selectedUser: number;
+  socket: Socket;
+  userId: number;
 }
-const socket = io("http://localhost:3002", {
-  path: "/socket",
-});
 
-const Conversation = ({ user }: Props) => {
+const Conversation = ({ selectedUser, socket, userId }: Props) => {
+  const { user } = useProvider();
+
   const [messages, setMessages] = useState<string[]>([]);
 
   useEffect(() => {
     setMessages([]);
-  }, [user]);
+  }, [selectedUser]);
 
   useEffect(() => {
-    socket.on("receive_message", (data) => {
-      setMessages((prev) => [...prev, data]);
-    });
-    socket.on("connect", () => {
-      console.log(socket.id);
-    });
-  }, [socket]);
+    setMessages((prev) => [...prev, user[selectedUser].message]);
+  }, [user[selectedUser].message]);
 
   const onSend = (message: string) => {
-    socket.emit("send_message", message);
+    socket.emit("send_message", {
+      message,
+      senderId: userId,
+      receiverId: Number(selectedUser),
+    });
     setMessages((prev) => [...prev, message]);
   };
 
@@ -49,7 +49,7 @@ const Conversation = ({ user }: Props) => {
           justifyContent: "center",
         }}
       >
-        {user.userName}
+        {selectedUser}
       </Typography>
       <Messages messages={messages} />
       <MessageInput onSend={onSend} />

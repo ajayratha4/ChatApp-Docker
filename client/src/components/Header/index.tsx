@@ -24,8 +24,7 @@ const Header = () => {
         <Box>
           <IconButton
             onClick={() => {
-              dispatch &&
-                dispatch({ type: ActionKind.SETTHEMECOLOR, payload: !isDark });
+              dispatch({ type: ActionKind.SETTHEMECOLOR, payload: !isDark });
             }}
           >
             {isDark ? <LightModeIcon /> : <DarkModeIcon />}
