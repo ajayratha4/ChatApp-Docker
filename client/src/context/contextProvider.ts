@@ -16,17 +16,26 @@ export interface User {
   userId: number;
   userName: string;
   socketId: string;
-  message: string;
 }
+
+export interface Message {
+  message: string;
+  senderId: number;
+  receiverId: number;
+  time: Date;
+}
+
 interface InitialValue {
   isDark: boolean;
   user: User[] | [];
   selectedUser: number | null;
+  message: Message[] | [];
 }
 export const initialValue = {
   isDark: false,
   user: [],
   selectedUser: null,
+  message: [],
 };
 export const reducer = (state: InitialValue, action: Action) => {
   const { type, payload } = action;
@@ -50,15 +59,9 @@ export const reducer = (state: InitialValue, action: Action) => {
         selectedUser: payload,
       };
     case ActionKind.SETUSERSMESSAGE:
-      const newUser = { ...state.user };
-      newUser[payload.id] = {
-        ...newUser[payload.id],
-        message: payload.message,
-      };
-
       return {
         ...state,
-        user: newUser,
+        message: [...state.message, payload],
       };
     default:
       return state;

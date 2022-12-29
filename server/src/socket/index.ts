@@ -9,10 +9,12 @@ export const socket = (io) => {
       io.emit("get_users", users);
     });
 
-    socket.on("send_message", (messageObj) => {
-      io.to(users[messageObj.receiverId].socketId).emit("receive_message", {
-        message: messageObj.message,
-        id: messageObj.senderId,
+    socket.on("send_message", ({ receiverId, message, senderId }) => {
+      io.to(users[receiverId].socketId).emit("receive_message", {
+        message: message,
+        senderId: senderId,
+        receiverId: receiverId,
+        time: new Date(),
       });
     });
     socket.on("disconnect", () => {

@@ -4,6 +4,7 @@ import Messages from "./Messages";
 import MessageInput from "./MessageInput";
 import { Socket } from "socket.io-client";
 import useProvider from "hooks/useProvider";
+import { ActionKind, Message } from "context/contextProvider";
 
 interface Props {
   selectedUser: number;
@@ -12,25 +13,32 @@ interface Props {
 }
 
 const Conversation = ({ selectedUser, socket, userId }: Props) => {
-  const { user } = useProvider();
+  const { message, dispatch } = useProvider();
 
-  const [messages, setMessages] = useState<string[]>([]);
-
-  useEffect(() => {
-    setMessages([]);
-  }, [selectedUser]);
+  const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
-    setMessages((prev) => [...prev, user[selectedUser].message]);
-  }, [user[selectedUser].message]);
+    const a = message.filter(
+      (item) =>
+        (item.senderId === Number(selectedUser) || item.senderId === userId) &&
+        (item.receiverId === userId || item.receiverId === Number(selectedUser))
+    );
+
+    setMessages(a);
+  }, [selectedUser, message]);
 
   const onSend = (message: string) => {
-    socket.emit("send_message", {
+    const variable = {
       message,
       senderId: userId,
       receiverId: Number(selectedUser),
+      time: new Date(),
+    };
+    socket.emit("send_message", variable);
+    dispatch({
+      type: ActionKind.SETUSERSMESSAGE,
+      payload: variable,
     });
-    setMessages((prev) => [...prev, message]);
   };
 
   return (
@@ -51,7 +59,7 @@ const Conversation = ({ selectedUser, socket, userId }: Props) => {
       >
         {selectedUser}
       </Typography>
-      <Messages messages={messages} />
+      <Messages messages={messages} userId={userId} />
       <MessageInput onSend={onSend} />
     </Box>
   );
