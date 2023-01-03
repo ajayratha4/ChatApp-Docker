@@ -1,6 +1,11 @@
 services:
   frontend:
-    container_name: test
-    image: test
+    container_name: testfromtend
+    build: ./client
     ports:
       - 3000:3000
+  backend:
+    container_name: testbackend
+    build: ./server
+    ports:
+      - 3002:3002

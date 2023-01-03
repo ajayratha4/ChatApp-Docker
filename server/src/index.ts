@@ -18,4 +18,4 @@ app.get("/", (req, res) => {
 
 socket(io);
 
-httpServer.listen(3002);
+httpServer.listen(3002, () => console.log("connected to 3002"));
