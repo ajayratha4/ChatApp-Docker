@@ -12,3 +12,6 @@ Steps for Installing Docker:
   
   $ docker --version
   
+  sh
+  $ docker exec -it -u root image id (171) sh
+  
