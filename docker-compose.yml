@@ -1,15 +1,27 @@
 version: "3.9"
 services:
-  frontend:
-    container_name: testfromtend
+  client:
+    container_name: React
     build: ./client
     ports:
       - 3001:3000
-  backend:
-    container_name: testbackend
+
+  server:
+    container_name: Node
     build: ./server
     ports:
       - 3002:3002
+    environment:
+      - DB=mongodb://mango:27017
+    depends_on:
+      - mango
+
+  mango:
+    image: mongo
+    restart: always
+    ports:
+      - 2717:27017
+
   nginx:
     image: nginx:latest
     volumes:

@@ -1,6 +1,7 @@
 import { socket } from "./socket/index";
 import express from "express";
 import { createServer } from "http";
+import mongoose from "mongoose";
 import { Server } from "socket.io";
 
 const app = express();
@@ -11,6 +12,15 @@ const io = new Server(httpServer, {
     origin: "*",
   },
 });
+
+mongoose
+  .connect(process.env.DB || "mongodb://localhost:27017")
+  .then((res) => {
+    console.log("connected to db");
+  })
+  .catch((err) => {
+    console.log("===============err===============", err);
+  });
 
 app.get("/", (req, res) => {
   res.send("hello");
